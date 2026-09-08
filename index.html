@@ -158,6 +158,8 @@
   .countdown .u b{
     display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--cream);
   }
+  .countdown .u b.bump{animation:mini-bump .35s ease;}
+  @keyframes mini-bump{0%{transform:scale(1.4);color:var(--gold-light);}100%{transform:scale(1);color:var(--cream);}}
   .countdown .u span{font-size:5px;letter-spacing:.04em;color:var(--cream-dim);text-transform:uppercase;}
   .s-event{text-align:center;font-size:6.8px;color:var(--cream-dim);margin-top:2px;line-height:1.4;}
   .s-event b{color:var(--cream);font-weight:600;}
@@ -168,8 +170,14 @@
     background:linear-gradient(150deg, rgba(201,162,75,.28), rgba(201,162,75,.06));
     border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;
+    opacity:0;transform:scale(.8);transition:opacity .4s ease, transform .4s ease;
   }
   .gallery .ph svg{width:9px;height:9px;opacity:.55;}
+  .plan-card.mockup-in .gallery .ph{opacity:1;transform:scale(1);}
+  .plan-card.mockup-in .gallery .ph:nth-child(1){transition-delay:.1s;}
+  .plan-card.mockup-in .gallery .ph:nth-child(2){transition-delay:.26s;}
+  .plan-card.mockup-in .gallery .ph:nth-child(3){transition-delay:.42s;}
+  .plan-card.mockup-in .gallery .ph:nth-child(4){transition-delay:.58s;}
 
   .map{
     border-radius:6px;border:1px solid var(--line);overflow:hidden;margin-top:2px;
@@ -179,7 +187,16 @@
       #1a140d;
     height:38px;position:relative;
   }
-  .map svg.pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-70%);width:11px;height:11px;color:var(--gold-light);}
+  .map svg.pin{
+    position:absolute;top:50%;left:50%;width:11px;height:11px;color:var(--gold-light);
+    transform:translate(-50%,-160%) scale(0);opacity:0;
+  }
+  .plan-card.mockup-in .map svg.pin{animation:mini-pindrop .5s cubic-bezier(.34,1.56,.64,1) .7s forwards;}
+  @keyframes mini-pindrop{
+    0%{transform:translate(-50%,-160%) scale(0);opacity:0;}
+    70%{transform:translate(-50%,-62%) scale(1.25);opacity:1;}
+    100%{transform:translate(-50%,-70%) scale(1);opacity:1;}
+  }
   .map .lbl{
     position:absolute;bottom:2px;left:0;right:0;text-align:center;
     font-size:5px;color:var(--cream-dim);letter-spacing:.02em;
@@ -191,6 +208,12 @@
   }
   .rsvp .yes{background:var(--gold);color:#14100d;}
   .rsvp .no{border:1px solid var(--line);color:var(--cream-dim);}
+  .plan-card.mockup-in .rsvp .yes{animation:mini-tap .5s ease 1.05s;}
+  @keyframes mini-tap{
+    0%{transform:scale(1);box-shadow:0 0 0 0 rgba(201,162,75,0);}
+    40%{transform:scale(.88);box-shadow:0 0 0 3px rgba(201,162,75,.4);}
+    100%{transform:scale(1);box-shadow:0 0 0 0 rgba(201,162,75,0);}
+  }
 
   .card-head{font-size:12.5px;color:var(--cream);margin:16px 0 10px;line-height:1.4;font-weight:500;min-height:34px;}
   .feat-list{list-style:none;margin:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:7px;}
@@ -209,10 +232,15 @@
   .cta-wa svg{width:18px;height:18px;}
   .cta-wa.small{margin-top:18px;padding:10px 18px;font-size:12px;width:100%;justify-content:center;}
   .demo-link{
-    display:block;margin-top:16px;font-size:11.5px;color:var(--cream-dim);
-    text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    margin-top:16px;width:100%;padding:11px 16px;border-radius:999px;
+    border:1.3px solid var(--gold);color:var(--gold-light);
+    font-weight:700;font-size:12.5px;text-decoration:none;
+    transition:background .25s ease, transform .25s ease, border-color .25s ease;
   }
-  .demo-link:hover{color:var(--gold-light);border-color:var(--gold);}
+  .demo-link svg{width:13px;height:13px;transition:transform .25s ease;}
+  .demo-link:hover{background:rgba(201,162,75,.14);border-color:var(--gold-light);transform:translateY(-1px);}
+  .demo-link:hover svg{transform:translateX(2px);}
 
   @media (min-width:900px){
     .plans-scroll{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;max-width:1040px;margin:0 auto;padding:10px 22px 10px;}
@@ -624,6 +652,14 @@
 
   // ============ live countdown (all cards share one target date) ============
   var target = new Date("2026-11-22T17:00:00");
+  function setDigit(el, val){
+    if(el.textContent !== val){
+      el.textContent = val;
+      el.classList.remove("bump");
+      void el.offsetWidth;
+      el.classList.add("bump");
+    }
+  }
   function tick(){
     var now = new Date();
     var diff = Math.max(0, target - now);
@@ -632,14 +668,25 @@
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
     document.querySelectorAll(".countdown").forEach(function(cd){
-      cd.querySelector(".cd-d").textContent = String(d).padStart(2,"0");
-      cd.querySelector(".cd-h").textContent = String(h).padStart(2,"0");
-      cd.querySelector(".cd-m").textContent = String(m).padStart(2,"0");
-      cd.querySelector(".cd-s").textContent = String(s).padStart(2,"0");
+      setDigit(cd.querySelector(".cd-d"), String(d).padStart(2,"0"));
+      setDigit(cd.querySelector(".cd-h"), String(h).padStart(2,"0"));
+      setDigit(cd.querySelector(".cd-m"), String(m).padStart(2,"0"));
+      setDigit(cd.querySelector(".cd-s"), String(s).padStart(2,"0"));
     });
   }
   tick();
   setInterval(tick, 1000);
+
+  // ============ each plan's phone "comes alive" once, when scrolled into view ============
+  var mockupObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add("mockup-in");
+        mockupObserver.unobserve(e.target);
+      }
+    });
+  },{threshold:.5});
+  document.querySelectorAll(".plan-card").forEach(function(card){ mockupObserver.observe(card); });
 
   // ============ confetti dots ============
   var conf = document.getElementById("confetti");

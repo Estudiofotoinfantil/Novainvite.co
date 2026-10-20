@@ -126,7 +126,7 @@ footer a{color:var(--ink)}
   <div class="wrap">
     <p class="eyebrow">Paso 1</p>
     <h2 class="serif">¿Para qué es tu invitación?</h2>
-    <p class="sub">Elegí el evento, recorré los diseños y tocá <strong>“Pedir esta invitación”</strong> para verla con tus datos.</p>
+    <p class="sub">Elegí el evento y armá tu invitación con tus datos: la ves al instante y podés probar todos los diseños.</p>
     <div class="events">
       <a class="ev" data-cat="primer_anito" href="#"><b>Infantil</b><span>Primer añito y cumples</span></a>
       <a class="ev" data-cat="cumpleanos" href="#"><b>Cumpleaños</b><span>Para todas las edades</span></a>
@@ -216,13 +216,15 @@ footer a{color:var(--ink)}
 var WA = '5491125918467';
 // Los diseños salen de Nova Invite Creator: siempre los que están activos hoy.
 var CATALOGO = 'https://nova-invite-creator.vercel.app/catalogo?v=novainvite';
+// Cada evento abre directo el simulador ("Mirá cómo queda") con el primer diseño de ese evento.
+var SIMULADOR = 'https://nova-invite-creator.vercel.app/pedido/novainvite?evento=';
 document.querySelectorAll('[data-wa]').forEach(function (a) {
   a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(a.getAttribute('data-wa'));
   a.target = '_blank'; a.rel = 'noopener';
 });
 document.querySelectorAll('[data-cat]').forEach(function (a) {
   var e = a.getAttribute('data-cat');
-  a.href = CATALOGO + (e ? '&e=' + e : '');
+  a.href = e ? SIMULADOR + e : CATALOGO;
 });
 </script>
 </body>

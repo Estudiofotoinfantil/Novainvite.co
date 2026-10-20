@@ -1,204 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Invite — Elegí el tipo de evento</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Invite · Invitaciones digitales</title>
+<meta name="description" content="Invitaciones digitales que se encargan de todo: cuenta regresiva, mapa, confirmaciones y fotos. Mirá cómo queda la tuya antes de pedirla. Desde $14.900.">
+<meta property="og:title" content="Nova Invite · Invitaciones digitales">
+<meta property="og:description" content="Mirá cómo queda tu invitación con tus datos antes de pedirla. Todas las temáticas, mismo precio.">
+<meta property="og:image" content="https://nova-invite-creator.vercel.app/premium/bosque/og.jpg">
+<meta name="theme-color" content="#f8f5ef">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,650;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#14100d;
-    --gold:#c9a24b;
-    --gold-light:#e8ce8b;
-    --cream:#f3ead8;
-    --cream-dim:#b9ad97;
-    --line:rgba(201,162,75,.25);
-    --radius-lg:26px;
-    --radius-md:16px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.10), transparent 60%), var(--bg);
-    color:var(--cream);
-    font-family:'Manrope',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:640px;margin:0 auto;padding:0 22px;}
-  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);}
-  h1,h2{font-family:'Fraunces',serif;margin:0;font-weight:500;}
-  p{margin:0;line-height:1.55;}
-  a{color:inherit;}
-  .topbar{padding:26px 0 0;}
-  .topbar .wrap{display:flex;align-items:center;justify-content:center;}
-  .brand{font-family:'Fraunces',serif;font-weight:650;font-size:18px;}
-  .brand em{color:var(--gold);font-style:normal;}
-  .hero{text-align:center;padding:30px 0 6px;}
-  .hero h1{font-size:clamp(27px,7vw,36px);line-height:1.15;letter-spacing:-.01em;margin:14px 0 14px;}
-  .hero h1 i{font-style:italic;color:var(--gold-light);font-weight:500;}
-  .hero p.sub{max-width:420px;margin:0 auto;color:var(--cream-dim);font-size:14.5px;}
-  .section{padding:30px 0 6px;}
-  /* --- featured (live) category --- */
-  .cat-featured{
-    position:relative;border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;color:var(--cream);
-    display:block;padding:26px 22px;
-    background:linear-gradient(155deg,#c9a24b,#5a4622);
-    border:1px solid var(--line);
-    transition:transform .25s ease;
-  }
-  .cat-featured:hover{transform:translateY(-3px);}
-  .cat-featured .live-badge{
-    display:inline-flex;align-items:center;gap:5px;background:rgba(20,16,13,.35);
-    border:1px solid rgba(255,255,255,.3);color:#fff;font-size:10.5px;font-weight:800;
-    letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;
-  }
-  .cat-featured .live-badge .dot{width:6px;height:6px;border-radius:50%;background:#6fdc8c;}
-  .cat-featured .motif{position:absolute;top:-10px;right:-6px;width:110px;color:#fff;opacity:.18;}
-  .cat-featured h3{font-size:24px;margin:14px 0 6px;position:relative;z-index:1;}
-  .cat-featured p.desc{font-size:13.5px;color:rgba(255,255,255,.85);max-width:270px;position:relative;z-index:1;}
-  .cat-featured .go-pill{
-    margin-top:16px;display:inline-flex;align-items:center;gap:6px;
-    background:#14100d;color:var(--gold-light);font-size:13px;font-weight:800;
-    padding:10px 18px;border-radius:999px;position:relative;z-index:1;
-  }
-  /* --- live grid (categorías ya disponibles) --- */
-  .live-label{text-align:center;color:var(--cream-dim);font-size:12px;margin:36px 0 16px;letter-spacing:.02em;}
-  .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .cat-card{
-    position:relative;aspect-ratio:1/1;border-radius:var(--radius-md);
-    border:1px solid var(--line);overflow:hidden;text-decoration:none;color:var(--cream);
-    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:14px;
-    background:linear-gradient(160deg,var(--c1),var(--c2));
-    transition:transform .25s ease, filter .25s ease, border-color .25s ease;
-  }
-  .cat-card:hover{transform:translateY(-3px);border-color:var(--gold);}
-  .cat-card.is-soon{filter:saturate(.75);}
-  .cat-card.is-soon:hover{filter:saturate(1);}
-  .cat-card::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(to top, rgba(0,0,0,.55), transparent 60%);
-  }
-  .cat-card .motif{
-    position:absolute;top:8%;left:50%;transform:translateX(-50%);
-    width:44%;color:#fff;opacity:.22;
-  }
-  .cat-card h4{
-    position:relative;z-index:1;font-family:'Fraunces',serif;font-weight:500;
-    font-size:14.5px;text-shadow:0 2px 10px rgba(0,0,0,.5);
-  }
-  .cat-badge{
-    position:absolute;top:9px;right:9px;z-index:1;
-    background:rgba(20,16,13,.55);border:1px solid rgba(255,255,255,.25);color:var(--gold-light);
-    font-size:8.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
-    padding:3px 8px;border-radius:999px;
-  }
-  .cat-badge.is-live{color:#8ff0a4;border-color:rgba(143,240,164,.4);}
-  .soon-label{text-align:center;color:var(--cream-dim);font-size:12px;margin:36px 0 16px;letter-spacing:.02em;}
-  .note{text-align:center;color:var(--cream-dim);font-size:12.5px;margin-top:26px;line-height:1.6;}
-  .note b{color:var(--gold-light);}
-  footer{padding:60px 0 50px;text-align:center;}
-  footer .brand{font-size:20px;}
-  footer .tagline{color:var(--gold);font-style:italic;font-family:'Fraunces',serif;margin-top:6px;font-size:14px;}
-  .contact-block{
-    display:flex;flex-direction:column;gap:10px;align-items:center;
-    margin-top:30px;padding-top:26px;border-top:1px solid var(--line);
-  }
-  .contact-block a{
-    display:inline-flex;align-items:center;gap:8px;color:var(--cream-dim);
-    text-decoration:none;font-size:12.5px;transition:color .25s ease;
-  }
-  .contact-block a:hover{color:var(--gold-light);}
-  .contact-block svg{width:15px;height:15px;flex:none;}
+:root{--bg:#f8f5ef;--card:#fff;--ink:#1d1a16;--mute:#6f665b;--gold:#9a7b3c;--line:#e7dfd2;--soft:#f1e8d9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 8px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{display:flex;flex-direction:column;align-items:center;line-height:.9;text-decoration:none}
+.logo b{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:600;letter-spacing:.02em}
+.logo span{font-family:'Cormorant Garamond',Georgia,serif;font-size:12px;letter-spacing:.32em;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ink);transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-light{background:transparent;color:var(--ink)}
+.btn-sm{padding:9px 16px;font-size:13px}
+.hero{display:grid;gap:34px;padding:22px 0 50px;align-items:center}
+@media(min-width:880px){.hero{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(42px,8vw,72px);line-height:1;margin:0 0 18px}
+.lead{font-size:18px;color:#3d372f;margin:0 0 24px;max-width:540px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.phone{width:min(300px,78vw);margin:0 auto;aspect-ratio:9/19;border-radius:40px;background:#111;padding:9px;box-shadow:0 30px 60px -30px rgba(40,30,15,.55)}
+.phone img{width:100%;height:100%;object-fit:cover;border-radius:32px;display:block}
+.feats{display:grid;gap:14px;margin:28px 0 0}
+@media(min-width:640px){.feats{grid-template-columns:1fr 1fr}}
+.feat{display:flex;gap:12px;align-items:flex-start}
+.ico{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid #d8c7a4;display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.feat strong{display:block;font-size:15px}
+.feat span{font-size:14px;color:var(--mute)}
+section{padding:46px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(32px,6vw,46px);margin:0 0 6px;line-height:1.05}
+.sub{color:var(--mute);margin:0 0 24px}
+.events{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:720px){.events{grid-template-columns:repeat(4,1fr)}}
+.ev{display:flex;flex-direction:column;gap:2px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--card);text-decoration:none}
+.ev b{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600}
+.ev span{font-size:13px;color:var(--mute)}
+.ev:hover{border-color:var(--gold)}
+.note{margin:16px 0 0;font-size:14px;color:var(--mute)}
+.prem{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:880px){.prem{grid-template-columns:repeat(3,1fr)}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.pc img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--soft)}
+.pc div{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pc b{font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;font-weight:600;line-height:1.1}
+.pc small{color:var(--mute);font-size:12px}
+.pc .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.plans{display:grid;gap:12px}
+@media(min-width:900px){.plans{grid-template-columns:repeat(4,1fr)}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 20px;position:relative}
+.plan.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plan .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.plan .price{font-family:'Cormorant Garamond',Georgia,serif;font-size:44px;font-weight:600;line-height:1.1;margin:6px 0 2px}
+.plan .what{font-weight:600;margin:0 0 14px}
+.plan ul{list-style:none;margin:0;padding:14px 0 0;border-top:1px solid var(--line)}
+.plan.dark ul{border-color:#3a342c}
+.plan li{position:relative;padding:4px 0 4px 22px;font-size:14px}
+.plan li:before{content:'✓';position:absolute;left:0;color:var(--gold)}
+.plan li.first{font-weight:600}
+.badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#d9b45f;color:var(--ink);font-size:10px;letter-spacing:.18em;font-weight:700;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.strip{margin:16px 0 0;background:var(--soft);border-radius:16px;padding:16px 18px;font-size:15px}
+.steps{display:grid;gap:12px;counter-reset:s}
+@media(min-width:780px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.step:before{counter-increment:s;content:'0' counter(s);font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;color:var(--gold);display:block;line-height:1}
+.step b{display:block;margin:8px 0 4px;font-size:16px}
+.step span{color:var(--mute);font-size:14px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary:after{content:'+';float:right;color:var(--gold);font-size:20px;line-height:1}
+details[open] summary:after{content:'–'}
+details p{margin:10px 0 0;color:var(--mute);font-size:15px}
+.final{text-align:center;padding:56px 0}
+.final h2{margin-bottom:14px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:13px;color:var(--mute);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+footer a{color:var(--ink)}
+.wa-float{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -10px rgba(0,0,0,.45);z-index:20}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="wrap">
-    <div class="brand">NOVA <em>INVITE</em></div>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#" aria-label="Nova Invite"><b>NOVA</b><span>INVITE</span></a>
+    <a class="btn btn-dark btn-sm" data-wa="Hola! Quiero consultar por una invitación digital." href="#">Pedí la tuya</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Invitaciones digitales interactivas</p>
+      <h1 class="serif">La invitación que se encarga de todo.</h1>
+      <p class="lead">Se abre en el celular como una página: cuenta los días, muestra sus fotos, lleva a todos al salón y te dice quién viene. <strong>Mirá cómo queda la tuya, con tus datos, antes de pedirla.</strong></p>
+      <div class="ctas">
+        <a class="btn btn-dark" href="#eventos">Mirá cómo queda la tuya</a>
+        <a class="btn btn-light" href="#planes">Ver precios</a>
+      </div>
+      <div class="feats">
+        <div class="feat"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><strong>Nadie se pierde</strong><span>El mapa abre Google Maps con un toque.</span></div></div>
+        <div class="feat"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><div><strong>Sabés quién va</strong><span>Confirman por WhatsApp y tenés la lista exacta.</span></div></div>
+        <div class="feat"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></svg></span><div><strong>Llega a todos en un segundo</strong><span>Un link por WhatsApp, sin imprimir ni repartir.</span></div></div>
+        <div class="feat"><span class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m21 16-5-5-8 8"/></svg></span><div><strong>Sus fotos, en la invitación</strong><span>Una galería para lucir al protagonista.</span></div></div>
+      </div>
+    </div>
+    <div class="phone"><img src="https://nova-invite-creator.vercel.app/premium/bosque/poster-cover.webp" alt="Invitación digital Nova Invite en un celular" loading="eager"></div>
   </div>
 </div>
-<section class="hero">
+
+<section id="eventos">
   <div class="wrap">
-    <span class="eyebrow">Nova Invite</span>
-    <h1>¿Para qué es<br><i>tu invitación</i>?</h1>
-    <p class="sub">Elegí el tipo de evento y te mostramos los planes, temáticas y ejemplos reales para ese momento.</p>
+    <p class="eyebrow">Paso 1</p>
+    <h2 class="serif">¿Para qué es tu invitación?</h2>
+    <p class="sub">Elegí el evento, recorré los diseños y tocá <strong>“Pedir esta invitación”</strong> para verla con tus datos.</p>
+    <div class="events">
+      <a class="ev" data-cat="primer_anito" href="#"><b>Infantil</b><span>Primer añito y cumples</span></a>
+      <a class="ev" data-cat="cumpleanos" href="#"><b>Cumpleaños</b><span>Para todas las edades</span></a>
+      <a class="ev" data-cat="quince_anos" href="#"><b>15 años</b><span>Una noche soñada</span></a>
+      <a class="ev" data-cat="casamiento" href="#"><b>Casamiento</b><span>El día más esperado</span></a>
+      <a class="ev" data-cat="bautismo" href="#"><b>Bautismo</b><span>Colores suaves</span></a>
+      <a class="ev" data-cat="comunion" href="#"><b>Comunión</b><span>Su día especial</span></a>
+      <a class="ev" data-cat="baby_shower" href="#"><b>Baby shower</b><span>Para esperar al bebé</span></a>
+      <a class="ev" data-cat="" href="#"><b>Ver todos</b><span>Todos los diseños</span></a>
+    </div>
+    <p class="note">Los diseños se actualizan solos: siempre ves los que están disponibles hoy.</p>
   </div>
 </section>
-<section class="section">
+
+<section id="premium">
   <div class="wrap">
-    <a class="cat-featured" href="infantil.html">
-      <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="26" rx="17" ry="21"/><path d="M32 47 Q35 54 32 62" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-      <span class="live-badge"><span class="dot"></span>Disponible ahora</span>
-      <h3>Infantil</h3>
-      <p class="desc">Cumpleaños de bebés y niños. 4 planes y ejemplos reales para ver antes de pedir.</p>
-      <span class="go-pill">Ver planes →</span>
-    </a>
-
-    <p class="live-label">También disponibles</p>
-    <div class="cat-grid">
-      <a class="cat-card" href="baby-shower.html" style="--c1:#5f7d99;--c2:#1c2836;">
-        <span class="cat-badge is-live">Disponible</span>
-        <svg class="motif" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M25 8h14v7l5 5v34a4 4 0 01-4 4H24a4 4 0 01-4-4V20l5-5V8z"/><line x1="21" y1="30" x2="43" y2="30"/></svg>
-        <h4>Baby Shower</h4>
-      </a>
-      <a class="cat-card" href="casamiento.html" style="--c1:#a89168;--c2:#332c1c;">
-        <span class="cat-badge is-live">Disponible</span>
-        <svg class="motif" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="24" cy="36" r="14"/><circle cx="40" cy="36" r="14"/></svg>
-        <h4>Casamiento</h4>
-      </a>
-      <a class="cat-card" href="15-anos.html" style="--c1:#b9748a;--c2:#4a2530;">
-        <span class="cat-badge is-live">Disponible</span>
-        <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><path d="M8 44 L14 20 L26 34 L32 16 L38 34 L50 20 L56 44 Z"/><rect x="8" y="44" width="48" height="8"/><circle cx="14" cy="16" r="3"/><circle cx="32" cy="12" r="3"/><circle cx="50" cy="16" r="3"/></svg>
-        <h4>15 Años</h4>
-      </a>
+    <p class="eyebrow">Línea Premium</p>
+    <h2 class="serif">Con video y apertura animada</h2>
+    <p class="sub">Arte ilustrado, portada en movimiento y una apertura que se toca para abrir. Van en el plan Premium.</p>
+    <div class="prem">
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/glamour/poster-cover.webp" alt="Diseño Glamour" loading="lazy"><div><b>Glamour</b><small>15 años</small><div class="row"><a class="btn btn-light btn-sm" href="https://nova-invite-creator.vercel.app/i/chris-y-adri" target="_blank" rel="noopener">Ver ejemplo</a><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Glamour (15 años), plan Premium $32.900." href="#">La quiero</a></div></div></div>
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/discoglam/poster-cover.webp" alt="Diseño Disco Glam" loading="lazy"><div><b>Disco Glam</b><small>15 años</small><div class="row"><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Disco Glam (15 años), plan Premium $32.900." href="#">La quiero</a></div></div></div>
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/boda1/poster-cover.webp" alt="Diseño Glicinas" loading="lazy"><div><b>Glicinas</b><small>Casamiento</small><div class="row"><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Glicinas (casamiento), plan Premium $32.900." href="#">La quiero</a></div></div></div>
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/vaquerita/poster-cover.webp" alt="Diseño Vaquerita" loading="lazy"><div><b>Vaquerita</b><small>Infantil</small><div class="row"><a class="btn btn-light btn-sm" href="https://nova-invite-creator.vercel.app/i/valen" target="_blank" rel="noopener">Ver ejemplo</a><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Vaquerita (infantil), plan Premium $32.900." href="#">La quiero</a></div></div></div>
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/bosque/poster-cover.webp" alt="Diseño Bosque mágico" loading="lazy"><div><b>Bosque mágico</b><small>Infantil</small><div class="row"><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Bosque mágico (infantil), plan Premium $32.900." href="#">La quiero</a></div></div></div>
+      <div class="pc"><img src="https://nova-invite-creator.vercel.app/premium/oceano/poster-cover.webp" alt="Diseño Océano de sueños" loading="lazy"><div><b>Océano de sueños</b><small>Infantil</small><div class="row"><a class="btn btn-light btn-sm" href="https://nova-invite-creator.vercel.app/i/camilo" target="_blank" rel="noopener">Ver ejemplo</a><a class="btn btn-dark btn-sm" data-wa="Hola! Quiero el diseño Premium Océano de sueños (infantil), plan Premium $32.900." href="#">La quiero</a></div></div></div>
     </div>
-
-    <p class="soon-label">Estamos armando este también</p>
-    <div class="cat-grid" style="grid-template-columns:1fr;">
-      <a class="cat-card is-soon" data-cat="Enamorados" style="--c1:#7a2430;--c2:#2b1013;">
-        <span class="cat-badge">Muy pronto</span>
-        <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><path d="M32 54 C10 38 4 24 14 14 C21 7 30 10 32 20 C34 10 43 7 50 14 C60 24 54 38 32 54 Z"/></svg>
-        <h4>Enamorados</h4>
-      </a>
-    </div>
-
-    <p class="note">¿Tu evento no es ninguno de estos? <b>Contanos</b> y vemos cómo armarlo igual.</p>
   </div>
 </section>
-<footer>
+
+<section id="planes">
   <div class="wrap">
-    <div class="brand">NOVA <em>INVITE</em></div>
-    <div class="tagline">Invitaciones que dejan huella</div>
-    <div class="contact-block">
-      <a href="https://www.instagram.com/Estudio_fotoinfantil" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg>
-        Estudio Fotoinfantil
-      </a>
-      <a href="https://www.instagram.com/novainvite.co" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg>
-        novainvite.co
-      </a>
-      <a href="https://wa.me/5491130448139" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.39a9.9 9.9 0 004.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.13.11-1.82-.11-.42-.14-.96-.32-1.65-.62-2.9-1.25-4.8-4.17-4.94-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.26-.29.58-.36.77-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .9 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>
-        11 3044-8139
-      </a>
+    <p class="eyebrow">Paso 2</p>
+    <h2 class="serif">Elegí tu plan</h2>
+    <p class="sub">Todas las temáticas, mismo precio.</p>
+    <div class="plans">
+      <div class="plan"><span class="tag">Esencial</span><p class="price">$14.900</p><p class="what">Lo justo para avisar</p><ul><li>Diseño con la temática que elijas</li><li>Nombre, fecha, hora y salón</li><li>Cuenta regresiva hasta el día</li><li>Link para mandar por WhatsApp</li></ul></div>
+      <div class="plan"><span class="tag">Fotos</span><p class="price">$19.900</p><p class="what">Para lucir al protagonista</p><ul><li class="first">Todo lo de Esencial</li><li>Galería con sus fotos</li><li>La familia ve lo grande que está</li></ul></div>
+      <div class="plan"><span class="tag">Ubicación</span><p class="price">$24.900</p><p class="what">Para que nadie se pierda</p><ul><li class="first">Todo lo de Fotos</li><li>Mapa del salón</li><li>Botón que abre Google Maps</li><li>Nadie te pregunta dónde es</li></ul></div>
+      <div class="plan dark"><span class="badge">RECOMENDADO</span><span class="tag">Premium</span><p class="price">$32.900</p><p class="what">Para no perseguir a nadie</p><ul><li class="first">Todo lo de Ubicación</li><li>Confirman con un toque por WhatsApp</li><li>Mensaje de confirmación a tu gusto</li><li>Lista exacta: no pagás lugares de más</li><li>Incluye los diseños Premium con video</li></ul></div>
+    </div>
+    <p class="strip"><strong>Con 50 invitados, el Premium sale menos de $700 por persona.</strong> Sin imprimir ni repartir.</p>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <p class="eyebrow">Así de fácil</p>
+    <h2 class="serif">Cómo funciona</h2>
+    <p class="sub">Elegí la temática, nosotros la armamos.</p>
+    <div class="steps">
+      <div class="step"><b>Mirá cómo queda</b><span>Elegí un diseño, escribí el nombre, la fecha y el salón, y mirá tu invitación al instante.</span></div>
+      <div class="step"><b>Pedila por WhatsApp</b><span>Elegí el plan y tocá “La quiero”: nos llega tu pedido con todos los datos.</span></div>
+      <div class="step"><b>Recibí tus links</b><span>Te mandamos el link de la invitación para compartir y el de confirmaciones para ver quién viene.</span></div>
     </div>
   </div>
-</footer>
+</section>
+
+<section id="preguntas">
+  <div class="wrap">
+    <h2 class="serif">Preguntas frecuentes</h2>
+    <p class="sub">Si te queda alguna duda, escribinos.</p>
+    <details><summary>¿Cómo la reciben mis invitados?</summary><p>Con un link que mandás por WhatsApp. Se abre en cualquier celular, sin descargar nada.</p></details>
+    <details><summary>¿Cómo confirman la asistencia?</summary><p>En el plan Premium confirman desde la invitación con un toque, y vos ves la lista completa en tu panel de confirmaciones.</p></details>
+    <details><summary>¿Puedo cambiar datos después?</summary><p>Sí. Si cambia la hora o el salón, avisanos y la actualizamos. El link sigue siendo el mismo.</p></details>
+    <details><summary>¿Hasta cuándo queda online?</summary><p>Hasta 15 días después del evento. Después, el link deja de mostrar la invitación.</p></details>
+    <details><summary>¿Cómo se paga?</summary><p>Cuando nos escribís por WhatsApp te pasamos los medios de pago.</p></details>
+  </div>
+</section>
+
+<div class="wrap final">
+  <h2 class="serif">Elegí la temática, nosotros la armamos.</h2>
+  <a class="btn btn-dark" data-wa="Hola! Quiero pedir mi invitación digital." href="#">Pedí la tuya por WhatsApp</a>
+</div>
+
+<div class="wrap">
+  <footer>
+    <span>© Nova Invite · Invitaciones digitales</span>
+    <span><a href="https://www.instagram.com/novainvite.co/" target="_blank" rel="noopener">@novainvite.co</a> · <a data-wa="Hola! Quiero consultar por una invitación digital." href="#">+54 9 11 2591-8467</a></span>
+  </footer>
+</div>
+
+<a class="wa-float" data-wa="Hola! Quiero consultar por una invitación digital." href="#" aria-label="Escribinos por WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg></a>
+
 <script>
-(function(){
-  var WHATSAPP_NUMBER = "5491130448139";
-  document.querySelectorAll(".cat-card[data-cat]").forEach(function(el){
-    var cat = el.getAttribute("data-cat");
-    var msg = "Hola! Quiero que me avisen cuando esté disponible el diseño de invitación para " + cat + " 🎉";
-    el.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
-    el.target = "_blank";
-    el.rel = "noopener";
-  });
-})();
+// Un solo WhatsApp para todo el sitio.
+var WA = '5491125918467';
+// Los diseños salen de Nova Invite Creator: siempre los que están activos hoy.
+var CATALOGO = 'https://nova-invite-creator.vercel.app/catalogo?v=novainvite';
+document.querySelectorAll('[data-wa]').forEach(function (a) {
+  a.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(a.getAttribute('data-wa'));
+  a.target = '_blank'; a.rel = 'noopener';
+});
+document.querySelectorAll('[data-cat]').forEach(function (a) {
+  var e = a.getAttribute('data-cat');
+  a.href = CATALOGO + (e ? '&e=' + e : '');
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Invite — Elegí el tipo de evento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,650;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14100d;
+    --gold:#c9a24b;
+    --gold-light:#e8ce8b;
+    --cream:#f3ead8;
+    --cream-dim:#b9ad97;
+    --line:rgba(201,162,75,.25);
+    --radius-lg:26px;
+    --radius-md:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:radial-gradient(1200px 600px at 50% -10%, rgba(201,162,75,.10), transparent 60%), var(--bg);
+    color:var(--cream);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px;}
+  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);}
+  h1,h2{font-family:'Fraunces',serif;margin:0;font-weight:500;}
+  p{margin:0;line-height:1.55;}
+  a{color:inherit;}
+  .topbar{padding:26px 0 0;}
+  .topbar .wrap{display:flex;align-items:center;justify-content:center;}
+  .brand{font-family:'Fraunces',serif;font-weight:650;font-size:18px;}
+  .brand em{color:var(--gold);font-style:normal;}
+  .hero{text-align:center;padding:30px 0 6px;}
+  .hero h1{font-size:clamp(27px,7vw,36px);line-height:1.15;letter-spacing:-.01em;margin:14px 0 14px;}
+  .hero h1 i{font-style:italic;color:var(--gold-light);font-weight:500;}
+  .hero p.sub{max-width:420px;margin:0 auto;color:var(--cream-dim);font-size:14.5px;}
+  .section{padding:30px 0 6px;}
+  /* --- featured (live) category --- */
+  .cat-featured{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;color:var(--cream);
+    display:block;padding:26px 22px;
+    background:linear-gradient(155deg,#c9a24b,#5a4622);
+    border:1px solid var(--line);
+    transition:transform .25s ease;
+  }
+  .cat-featured:hover{transform:translateY(-3px);}
+  .cat-featured .live-badge{
+    display:inline-flex;align-items:center;gap:5px;background:rgba(20,16,13,.35);
+    border:1px solid rgba(255,255,255,.3);color:#fff;font-size:10.5px;font-weight:800;
+    letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;
+  }
+  .cat-featured .live-badge .dot{width:6px;height:6px;border-radius:50%;background:#6fdc8c;}
+  .cat-featured .motif{position:absolute;top:-10px;right:-6px;width:110px;color:#fff;opacity:.18;}
+  .cat-featured h3{font-size:24px;margin:14px 0 6px;position:relative;z-index:1;}
+  .cat-featured p.desc{font-size:13.5px;color:rgba(255,255,255,.85);max-width:270px;position:relative;z-index:1;}
+  .cat-featured .go-pill{
+    margin-top:16px;display:inline-flex;align-items:center;gap:6px;
+    background:#14100d;color:var(--gold-light);font-size:13px;font-weight:800;
+    padding:10px 18px;border-radius:999px;position:relative;z-index:1;
+  }
+  /* --- live grid (categorías ya disponibles) --- */
+  .live-label{text-align:center;color:var(--cream-dim);font-size:12px;margin:36px 0 16px;letter-spacing:.02em;}
+  .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .cat-card{
+    position:relative;aspect-ratio:1/1;border-radius:var(--radius-md);
+    border:1px solid var(--line);overflow:hidden;text-decoration:none;color:var(--cream);
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:14px;
+    background:linear-gradient(160deg,var(--c1),var(--c2));
+    transition:transform .25s ease, filter .25s ease, border-color .25s ease;
+  }
+  .cat-card:hover{transform:translateY(-3px);border-color:var(--gold);}
+  .cat-card.is-soon{filter:saturate(.75);}
+  .cat-card.is-soon:hover{filter:saturate(1);}
+  .cat-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,.55), transparent 60%);
+  }
+  .cat-card .motif{
+    position:absolute;top:8%;left:50%;transform:translateX(-50%);
+    width:44%;color:#fff;opacity:.22;
+  }
+  .cat-card h4{
+    position:relative;z-index:1;font-family:'Fraunces',serif;font-weight:500;
+    font-size:14.5px;text-shadow:0 2px 10px rgba(0,0,0,.5);
+  }
+  .cat-badge{
+    position:absolute;top:9px;right:9px;z-index:1;
+    background:rgba(20,16,13,.55);border:1px solid rgba(255,255,255,.25);color:var(--gold-light);
+    font-size:8.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;
+  }
+  .cat-badge.is-live{color:#8ff0a4;border-color:rgba(143,240,164,.4);}
+  .soon-label{text-align:center;color:var(--cream-dim);font-size:12px;margin:36px 0 16px;letter-spacing:.02em;}
+  .note{text-align:center;color:var(--cream-dim);font-size:12.5px;margin-top:26px;line-height:1.6;}
+  .note b{color:var(--gold-light);}
+  footer{padding:60px 0 50px;text-align:center;}
+  footer .brand{font-size:20px;}
+  footer .tagline{color:var(--gold);font-style:italic;font-family:'Fraunces',serif;margin-top:6px;font-size:14px;}
+  .contact-block{
+    display:flex;flex-direction:column;gap:10px;align-items:center;
+    margin-top:30px;padding-top:26px;border-top:1px solid var(--line);
+  }
+  .contact-block a{
+    display:inline-flex;align-items:center;gap:8px;color:var(--cream-dim);
+    text-decoration:none;font-size:12.5px;transition:color .25s ease;
+  }
+  .contact-block a:hover{color:var(--gold-light);}
+  .contact-block svg{width:15px;height:15px;flex:none;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">NOVA <em>INVITE</em></div>
+  </div>
+</div>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Nova Invite</span>
+    <h1>¿Para qué es<br><i>tu invitación</i>?</h1>
+    <p class="sub">Elegí el tipo de evento y te mostramos los planes, temáticas y ejemplos reales para ese momento.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <a class="cat-featured" href="infantil.html">
+      <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><ellipse cx="32" cy="26" rx="17" ry="21"/><path d="M32 47 Q35 54 32 62" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <span class="live-badge"><span class="dot"></span>Disponible ahora</span>
+      <h3>Infantil</h3>
+      <p class="desc">Cumpleaños de bebés y niños. 4 planes y ejemplos reales para ver antes de pedir.</p>
+      <span class="go-pill">Ver planes →</span>
+    </a>
+
+    <p class="live-label">También disponibles</p>
+    <div class="cat-grid">
+      <a class="cat-card" href="baby-shower.html" style="--c1:#5f7d99;--c2:#1c2836;">
+        <span class="cat-badge is-live">Disponible</span>
+        <svg class="motif" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M25 8h14v7l5 5v34a4 4 0 01-4 4H24a4 4 0 01-4-4V20l5-5V8z"/><line x1="21" y1="30" x2="43" y2="30"/></svg>
+        <h4>Baby Shower</h4>
+      </a>
+      <a class="cat-card" href="casamiento.html" style="--c1:#a89168;--c2:#332c1c;">
+        <span class="cat-badge is-live">Disponible</span>
+        <svg class="motif" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><circle cx="24" cy="36" r="14"/><circle cx="40" cy="36" r="14"/></svg>
+        <h4>Casamiento</h4>
+      </a>
+      <a class="cat-card" href="15-anos.html" style="--c1:#b9748a;--c2:#4a2530;">
+        <span class="cat-badge is-live">Disponible</span>
+        <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><path d="M8 44 L14 20 L26 34 L32 16 L38 34 L50 20 L56 44 Z"/><rect x="8" y="44" width="48" height="8"/><circle cx="14" cy="16" r="3"/><circle cx="32" cy="12" r="3"/><circle cx="50" cy="16" r="3"/></svg>
+        <h4>15 Años</h4>
+      </a>
+    </div>
+
+    <p class="soon-label">Estamos armando este también</p>
+    <div class="cat-grid" style="grid-template-columns:1fr;">
+      <a class="cat-card is-soon" data-cat="Enamorados" style="--c1:#7a2430;--c2:#2b1013;">
+        <span class="cat-badge">Muy pronto</span>
+        <svg class="motif" viewBox="0 0 64 64" fill="currentColor"><path d="M32 54 C10 38 4 24 14 14 C21 7 30 10 32 20 C34 10 43 7 50 14 C60 24 54 38 32 54 Z"/></svg>
+        <h4>Enamorados</h4>
+      </a>
+    </div>
+
+    <p class="note">¿Tu evento no es ninguno de estos? <b>Contanos</b> y vemos cómo armarlo igual.</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="brand">NOVA <em>INVITE</em></div>
+    <div class="tagline">Invitaciones que dejan huella</div>
+    <div class="contact-block">
+      <a href="https://www.instagram.com/Estudio_fotoinfantil" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg>
+        Estudio Fotoinfantil
+      </a>
+      <a href="https://www.instagram.com/novainvite.co" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-4-4 3-3-2-6 5"/></svg>
+        novainvite.co
+      </a>
+      <a href="https://wa.me/5491130448139" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.39a9.9 9.9 0 004.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.13.11-1.82-.11-.42-.14-.96-.32-1.65-.62-2.9-1.25-4.8-4.17-4.94-4.37-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.26-.29.58-.36.77-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .9 2.15.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.63-.14.26.09 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>
+        11 3044-8139
+      </a>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var WHATSAPP_NUMBER = "5491130448139";
+  document.querySelectorAll(".cat-card[data-cat]").forEach(function(el){
+    var cat = el.getAttribute("data-cat");
+    var msg = "Hola! Quiero que me avisen cuando esté disponible el diseño de invitación para " + cat + " 🎉";
+    el.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    el.target = "_blank";
+    el.rel = "noopener";
+  });
+})();
+</script>
+</body>
+</html>
